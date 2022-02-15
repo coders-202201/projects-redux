@@ -98,4 +98,60 @@ describe("Given a projectsReducer function", () => {
       expect(newProjects).toEqual(expectedNewProjects);
     });
   });
+
+  describe("When it receives two projects and a create action with a new project", () => {
+    test("Then it should return the three projects", () => {
+      const projects = [
+        {
+          id: 1,
+          name: "Project 1",
+        },
+        {
+          id: 2,
+          name: "Project 2",
+        },
+      ];
+      const newProject = {
+        id: 3,
+        name: "Project 3",
+      };
+      const action = {
+        type: actionsTypes.createProject,
+        project: newProject,
+      };
+
+      const newProjects = projectsReducer(projects, action);
+
+      expect(newProjects).toHaveLength(3);
+      expect(newProjects[2].name).toBe(newProject.name);
+    });
+  });
+
+  describe("When it receives two projects and a update action with project #1 changed", () => {
+    test("Then it should return two projects including the changed project", () => {
+      const projects = [
+        {
+          id: 1,
+          name: "Project 1",
+        },
+        {
+          id: 2,
+          name: "Project 2",
+        },
+      ];
+      const newProject = {
+        id: 2,
+        name: "Project 2 bis",
+      };
+      const action = {
+        type: actionsTypes.updateProject,
+        project: newProject,
+      };
+
+      const newProjects = projectsReducer(projects, action);
+
+      expect(newProjects).toHaveLength(2);
+      expect(newProjects[1].name).toBe(newProject.name);
+    });
+  });
 });

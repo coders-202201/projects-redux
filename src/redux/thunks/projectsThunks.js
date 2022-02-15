@@ -1,6 +1,8 @@
 import {
+  createProjectAction,
   deleteProjectAction,
   loadProjectsAction,
+  updateProjectAction,
 } from "../actions/actionsCreators";
 
 export const loadProjectsThunk = async (dispatch) => {
@@ -17,4 +19,33 @@ export const deleteProjectThunk = (id) => async (dispatch) => {
   if (response.ok) {
     dispatch(deleteProjectAction(id));
   }
+};
+
+export const createProjectThunk = (project) => async (dispatch) => {
+  const response = await fetch(process.env.REACT_APP_API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(project),
+  });
+  const newProject = await response.json();
+
+  dispatch(createProjectAction(newProject));
+};
+
+export const updateProjectThunk = (project) => async (dispatch) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_API_URL}${project.id}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(project),
+    }
+  );
+  const updatedProject = await response.json();
+
+  dispatch(updateProjectAction(updatedProject));
 };

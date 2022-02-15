@@ -9,3 +9,13 @@ export const deleteProjectAction = (id) => ({
   type: actionsTypes.deleteProject,
   id,
 });
+
+export const createProjectAction = (project) => ({
+  type: actionsTypes.createProject,
+  project,
+});
+
+export const updateProjectAction = (project) => ({
+  type: actionsTypes.updateProject,
+  project,
+});

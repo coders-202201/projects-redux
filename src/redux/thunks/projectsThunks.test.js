@@ -1,5 +1,10 @@
 import actionsTypes from "../actions/actionsTypes";
-import { deleteProjectThunk, loadProjectsThunk } from "./projectsThunks";
+import {
+  createProjectThunk,
+  deleteProjectThunk,
+  loadProjectsThunk,
+  updateProjectThunk,
+} from "./projectsThunks";
 
 describe("Given a loadProjectsThunk function", () => {
   describe("When it receives a dispatch function", () => {
@@ -62,6 +67,42 @@ describe("Given a deleteProjectThunk inner function", () => {
       await thunkFunction(dispatch);
 
       expect(dispatch).not.toHaveBeenCalled();
+    });
+  });
+});
+
+describe("Given a createProjectThunk inner function", () => {
+  describe("When it receives a dispatch function", () => {
+    test("Then it should invoke dispatch with a create action and a new project", async () => {
+      const project = {
+        name: "Marta's project",
+        group: "Marta crew",
+      };
+      const dispatch = jest.fn();
+
+      const thunkFunction = createProjectThunk(project);
+
+      await thunkFunction(dispatch);
+
+      expect(dispatch).toHaveBeenCalled();
+    });
+  });
+});
+
+describe("Given a updateProjectThunk inner function", () => {
+  describe("When it receives a dispatch function", () => {
+    test("Then it should invoke dispatch with a update action and a new project", async () => {
+      const project = {
+        name: "Marta's project",
+        group: "Marta crew",
+      };
+      const dispatch = jest.fn();
+
+      const thunkFunction = updateProjectThunk(project);
+
+      await thunkFunction(dispatch);
+
+      expect(dispatch).toHaveBeenCalled();
     });
   });
 });
