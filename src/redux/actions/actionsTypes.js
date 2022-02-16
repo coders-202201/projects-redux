@@ -3,6 +3,7 @@ const actionsTypes = {
   deleteProject: "delete-project",
   createProject: "create-project",
   updateProject: "update-project",
+  loadCurrentProject: "load-current-project",
 };
 
 export default actionsTypes;

@@ -26,14 +26,11 @@ const handlers = [
       ])
     )
   ),
-  rest.delete(`${process.env.REACT_APP_API_URL}1`, (req, res, ctx) =>
-    res(ctx.status(200), ctx.json({}))
-  ),
-  rest.delete(`${process.env.REACT_APP_API_URL}3`, (req, res, ctx) =>
-    res(ctx.status(200), ctx.json({}))
-  ),
   rest.delete(`${process.env.REACT_APP_API_URL}10`, (req, res, ctx) =>
     res(ctx.status(404))
+  ),
+  rest.delete(`${process.env.REACT_APP_API_URL}:id`, (req, res, ctx) =>
+    res(ctx.status(200), ctx.json({}))
   ),
   rest.post(process.env.REACT_APP_API_URL, (req, res, ctx) =>
     res(
@@ -42,6 +39,16 @@ const handlers = [
         id: 90,
         name: "Marta's project",
         group: "Marta crew",
+      })
+    )
+  ),
+  rest.put(`${process.env.REACT_APP_API_URL}:id`, (req, res, ctx) =>
+    res(
+      ctx.status(200),
+      ctx.json({
+        id: 90,
+        name: "Marta's project",
+        group: "Marta's friends",
       })
     )
   ),

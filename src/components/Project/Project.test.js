@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { BrowserRouter } from "react-router-dom";
 import Project from "./Project";
 
 describe("Given a Project component", () => {
@@ -9,7 +10,11 @@ describe("Given a Project component", () => {
         name: "Luis",
       };
 
-      render(<Project project={project} />);
+      render(
+        <BrowserRouter>
+          <Project project={project} />
+        </BrowserRouter>
+      );
 
       const heading = screen.getByRole("heading", { name: project.name });
 
@@ -25,7 +30,11 @@ describe("Given a Project component", () => {
       };
       const fakeDelete = jest.fn();
 
-      render(<Project project={project} onDelete={fakeDelete} />);
+      render(
+        <BrowserRouter>
+          <Project project={project} onDelete={fakeDelete} />
+        </BrowserRouter>
+      );
 
       const button = screen.getByRole("button", { name: /delete/i });
       userEvent.click(button);

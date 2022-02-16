@@ -5,6 +5,11 @@ export const loadProjectsAction = (projects) => ({
   projects,
 });
 
+export const loadCurrentProjectAction = (project) => ({
+  type: actionsTypes.loadCurrentProject,
+  project,
+});
+
 export const deleteProjectAction = (id) => ({
   type: actionsTypes.deleteProject,
   id,

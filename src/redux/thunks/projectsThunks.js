@@ -1,6 +1,7 @@
 import {
   createProjectAction,
   deleteProjectAction,
+  loadCurrentProjectAction,
   loadProjectsAction,
   updateProjectAction,
 } from "../actions/actionsCreators";
@@ -10,6 +11,13 @@ export const loadProjectsThunk = async (dispatch) => {
   const projects = await response.json();
 
   dispatch(loadProjectsAction(projects));
+};
+
+export const loadCurrentProjectThunk = (id) => async (dispatch) => {
+  const response = await fetch(`${process.env.REACT_APP_API_URL}${id}`);
+  const currentProject = await response.json();
+
+  dispatch(loadCurrentProjectAction(currentProject));
 };
 
 export const deleteProjectThunk = (id) => async (dispatch) => {

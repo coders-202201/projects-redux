@@ -1,12 +1,17 @@
 import { screen, waitForElementToBeRemoved } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { BrowserRouter } from "react-router-dom";
 import renderWithProviders from "../../setupTests";
 import Projects from "./Projects";
 
 describe("Given a Projects component", () => {
   describe("When it's rendered", () => {
     test("Then it should display 'Cocktails 4 All' and 'WeeklyMenu'", async () => {
-      renderWithProviders(<Projects />);
+      renderWithProviders(
+        <BrowserRouter>
+          <Projects />
+        </BrowserRouter>
+      );
 
       const starFightersText = await screen.findByRole("heading", {
         name: /cocktails 4 all/i,
@@ -22,7 +27,11 @@ describe("Given a Projects component", () => {
 
   describe("When the user clicks on delete button from project 'Cocktails 4 All'", () => {
     test("Then it should not display the heading 'Cocktails 4 All'", async () => {
-      renderWithProviders(<Projects />);
+      renderWithProviders(
+        <BrowserRouter>
+          <Projects />
+        </BrowserRouter>
+      );
 
       const deleteButtons = screen.getAllByRole("button", { name: /delete/i });
       const cocktailsDeleteButton = deleteButtons[0];

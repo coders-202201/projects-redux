@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createProjectThunk } from "../../redux/thunks/projectsThunks";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createProjectThunk,
+  loadCurrentProjectThunk,
+} from "../../redux/thunks/projectsThunks";
 
 const groups = [
   "API Coders",
@@ -13,7 +16,7 @@ const groups = [
   "Los panas del Trivial",
 ];
 
-const FormProject = () => {
+const FormProject = ({ isEditing, id }) => {
   const blankForm = {
     name: "",
     group: "",
@@ -23,6 +26,10 @@ const FormProject = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const currentProject = useSelector((state) => state.currentProject);
+
+  const buttonText = isEditing ? "Update" : "Create";
 
   const changeData = (event) => {
     setFormData({
@@ -38,6 +45,18 @@ const FormProject = () => {
   };
 
   const isFormInvalid = formData.name === "" || formData.group === "";
+
+  useEffect(() => {
+    if (isEditing) {
+      dispatch(loadCurrentProjectThunk(id));
+    }
+  }, [dispatch, isEditing, id]);
+
+  useEffect(() => {
+    if (currentProject.name) {
+      setFormData(currentProject);
+    }
+  }, [currentProject]);
 
   return (
     <form noValidate autoComplete="off" onSubmit={submitForm}>
@@ -62,7 +81,7 @@ const FormProject = () => {
         </select>
       </div>
       <button type="submit" disabled={isFormInvalid}>
-        Create
+        {buttonText}
       </button>
     </form>
   );

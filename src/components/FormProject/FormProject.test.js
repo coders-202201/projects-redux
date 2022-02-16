@@ -53,7 +53,7 @@ describe("Given a FormProject component", () => {
   });
 
   describe("When the user enters name 'Marta' and group 'API Coders' and submits the form", () => {
-    test("Then it should invoke dispatch with a new project with name 'Marta' and group 'API Coders'", () => {
+    test("Then it should invoke dispatch", () => {
       const name = "Marta";
       const group = "API Coders";
 
